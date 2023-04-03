@@ -8,19 +8,12 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
-                <h3 class="m-0 font-weight-bold text-primary">Product</h3>
-                <div class="btn-group ml-auto" role="group">
-                    <button class="btn btn-primary px-2" onclick="dataexport('copy')">Copy</button>
-                    <button class="btn btn-primary px-2" onclick="dataexport('csv')">CSV</button>
-                    <button class="btn btn-primary px-2" onclick="dataexport('excel')">Excel</button>
-                    <button class="btn btn-primary px-2" onclick="dataexport('pdf')">PDF</button>
-                    <button class="btn btn-primary px-2" onclick="dataexport('print')">Print</button>
-                </div>
-                <a href="/dashboard/product/create" class="btn btn-primary btn-icon-split ml-2">
+                <h3 class="m-0 font-weight-bold text-primary">Brand</h3>
+                <a href="/dashboard/brand/create" class="btn btn-primary btn-icon-split ml-2">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
-                    <span class="text">Tambah Product</span>
+                    <span class="text">Tambah Brand</span>
                 </a>
             </div>
         </div>
@@ -31,22 +24,20 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Deskripsi Singkat</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($products as $product)
+                        @forelse ($brands as $brand)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->short_desc }}</td>
+                                <td>{{ $brand->name }}</td>
                                 <td>
-                                    <a href="/dashboard/product/{{ $product->id }}/edit"
+                                    <a href="/dashboard/brand/{{ $brand->id }}/edit"
                                         class="btn btn-sm btn-success">
                                         <i class="fa fa-pen"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-danger" onclick="hapus({{ $product->id }})"
+                                    <a href="#" class="btn btn-sm btn-danger" onclick="hapus({{ $brand->id }})"
                                         data-toggle="modal" data-target="#hapus">
                                         <i class="fa fa-trash"></i>
                                     </a>
@@ -54,10 +45,9 @@
                             </tr>
                         @empty
                             <tr>
-                                <td>Product Kosong</td>
-                                <td>Product Kosong</td>
-                                <td>Product Kosong</td>
-                                <td>Product Kosong</td>
+                                <td>Brand Kosong</td>
+                                <td>Brand Kosong</td>
+                                <td>Brand Kosong</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -99,17 +89,9 @@
     <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
-    <!-- Datatables Buttons -->
-    <script src="{{ asset('admin/js/dataexport.js')}}"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
     <script>
         function hapus(id) {
-            $('#hapusForm').attr('action', `/dashboard/product/${id}`);
+            $('#hapusForm').attr('action', `/dashboard/brand/${id}`);
         }
     </script>
     <script>
@@ -124,8 +106,6 @@
                 "next": ">"
               }
             },
-            "dom": 'Bfrtip',
-            "buttons": ['copy', 'csv', 'excel', 'pdf', 'print']
           });
         });
     </script>

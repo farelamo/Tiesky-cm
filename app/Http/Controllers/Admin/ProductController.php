@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Brand;
 use Exception;
 
 class ProductController extends Controller
@@ -26,7 +28,9 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.product.create');
+        $brands     = Brand::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+        return view('admin.product.create', compact('brands', 'categories'));
     }
 
     public function store(ProductRequest $request)
@@ -49,10 +53,12 @@ class ProductController extends Controller
             Storage::putFileAs('public/images', $imageFile, $image);
 
             Product::create([
-                'name'       => $request->name,
-                'short_desc' => $request->short_desc,
-                'desc'       => $request->desc,
-                'photo'      => $image,
+                'name'        => $request->name,
+                'short_desc'  => $request->short_desc,
+                'desc'        => $request->desc,
+                'photo'       => $image,
+                'category_id' => $request->category_id,
+                'brand_id'    => $request->brand_id,
             ]);
 
             alert()->success('Success', 'Data berhasil ditambahkan');
@@ -73,7 +79,10 @@ class ProductController extends Controller
             return redirect()->back()->withInput();
         }
 
-        return view('admin.product.edit', compact('product'));
+        $brands     = Brand::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+
+        return view('admin.product.edit', compact('product', 'brands', 'categories'));
     }
 
     public function update(ProductRequest $request, $id)
@@ -85,10 +94,14 @@ class ProductController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $oriPhoto = $product->photo;
+
         $updateData = [
-            'name'       => $request->name,
-            'short_desc' => $request->short_desc,
-            'desc'       => $request->desc,
+            'name'        => $request->name,
+            'short_desc'  => $request->short_desc,
+            'desc'        => $request->desc,
+            'category_id' => $request->category_id,
+            'brand_id'    => $request->brand_id,
         ];
 
         if($request->hasFile('photo')){
@@ -114,14 +127,20 @@ class ProductController extends Controller
 
             $product->update($updateData);
 
+            if($request->hasFile('photo')){
+                if($oriPhoto){
+                    if(Storage::disk('local')->exists('public/images/' . $oriPhoto)){
+                        Storage::delete('public/images/' . $oriPhoto);
+                    }
+                }
+            }
+
             alert()->success('Success', 'Data berhasil diupdate');
             return redirect('/dashboard/product');
         }catch(Exception $e){
             if($request->hasFile('photo')){
-                if($updateData->photo){
-                    if(Storage::disk('local')->exists('public/images/' . $updateData->photo)){
-                        Storage::delete('public/images/' . $updateData->photo);
-                    }
+                if(Storage::disk('local')->exists('public/images/' . $image)){
+                    Storage::delete('public/images/' . $image);
                 }
             }
             return $this->error('Terjadi Kesalahan');

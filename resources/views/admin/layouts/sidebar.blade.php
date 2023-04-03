@@ -8,8 +8,23 @@
 
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
+        <a class="nav-link" href="/dashboard/client">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Client</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/dashboard/brand">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            <span>Brand</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/dashboard/category">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Category</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="/dashboard/product">
-            <i class="fas fa-fw fa-shopping-basket"></i>
+            <i class="fas fa-fw fa-box-open"></i>
             <span>Product</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

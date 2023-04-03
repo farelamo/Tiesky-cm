@@ -31,6 +31,11 @@
                         </span>
                     </label>
                     <input type="file" class="form-control" id="photo" name="photo">
+                    @error('photo')
+                        <span class="text-danger ml-3">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="name">Nama Product</label>
@@ -41,6 +46,44 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label for="brand">Brand</label>
+                        <select name="brand_id" class="form-control" id="brand">
+                            <option value="">-- Pilih Brand --</option>
+                            @foreach ($brands as $brand)
+                                @if (old('brand_id') ?? $product->brand_id == $brand->id)
+                                    <option value="{{ $brand->id }}" selected>{{ $brand->name }}</option>
+                                @else
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @error('brand_id')
+                            <span class="text-danger ml-3">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-6">
+                        <label for="kategori">Kategori</label>
+                        <select name="category_id" class="form-control" id="kategori">
+                            <option value="">-- Pilih Kategori --</option>
+                            @foreach ($categories as $category)
+                                @if (old('category_id') ?? $product->category_id == $category->id)
+                                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                @else
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <span class="text-danger ml-3">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="short_desc">Deskripsi Singkat</label>

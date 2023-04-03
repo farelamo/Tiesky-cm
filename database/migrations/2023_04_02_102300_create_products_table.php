@@ -8,16 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_brands', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->foreignId('brand_id')->constrained();
+            $table->string('name', 100);
+            $table->string('short_desc', 150);
+            $table->text('desc');
+            $table->text('photo')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('product_brands');
+        Schema::dropIfExists('products');
     }
 };

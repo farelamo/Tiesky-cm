@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\HomeController;
 
 Route::get('/login', [AuthController::class, 'index']);
@@ -18,5 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::prefix('/dashboard')->group(function () {
         Route::resource('/product', ProductController::class)->except(['show']);
+        Route::resource('/brand', BrandController::class)->except(['show']);
+        Route::resource('/client', ClientController::class)->except(['show']);
+        Route::resource('/category', CategoryController::class)->except(['show']);
     });
 });

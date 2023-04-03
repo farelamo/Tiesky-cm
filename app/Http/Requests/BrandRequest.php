@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class BrandRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,15 +14,15 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'       => 'required|max:100',
+            'name' => 'required|max:100',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required'        => "nama product harus diisi",
-            'name.max'             => "maximal nama product adalah 100 character",
+            'name.required'  => "nama product harus diisi",
+            'name.max'       => "maximal nama product adalah 100 character",
         ];
     }
 }

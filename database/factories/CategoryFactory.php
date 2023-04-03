@@ -9,7 +9,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'       => $this->faker->sentence(5),
+            'name' => $this->faker->sentence(5),
         ];
     }
 }
