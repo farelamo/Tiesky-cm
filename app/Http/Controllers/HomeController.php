@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Exception;
 
@@ -33,6 +35,8 @@ class HomeController extends Controller
     public function catalog()
     {
         return view('landing.catalog',[
+            "brands" => Brand::all(),
+            "categories" => Category::all(),
             "products" => Product::all(),
         ]);
     }
