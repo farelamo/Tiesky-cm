@@ -12,8 +12,8 @@ class ProductFactory extends Factory
             'name'        => $this->faker->sentence(5),
             'short_desc'  => $this->faker->sentence(10),
             'desc'        => $this->faker->text(200),
-            'category_id' => rand(1, 20),
-            'brand_id'    => rand(1, 20),
+            'category_id' => rand(1, 5),
+            'brand_id'    => rand(1, 10),
         ];
     }
 }
